@@ -1,0 +1,39 @@
+server:
+  port: 8001
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: service1
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 172.24.226.60:8848
+      username: nacos
+      password: nacos
+
+# boot 2 配置
+  zipkin:
+    sender:
+      type: web
+    base-url: http://172.24.226.60:9411
+    service:
+      name: service1
+  sleuth:
+    sampler:
+      probability: 1
+
+# boot 3 配置
+management:
+  zipkin:
+    tracing:
+      endpoint: http://172.24.226.60:9411/api/v2/spans
+  tracing:
+    sampling:
+      probability: 1.0
+
+logging:
+  pattern:
+    # 将 traceId 和 spanId 和 log 绑定
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
