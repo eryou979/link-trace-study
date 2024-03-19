@@ -6,10 +6,12 @@
     <parent>
         <groupId>org.example</groupId>
 <!--        <artifactId>parent2</artifactId>-->
-        <artifactId>parent3</artifactId>
+<!--                <artifactId>parent3</artifactId>-->
+                <artifactId>parent-skywalking</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>service2</artifactId>
+
 
 </project>

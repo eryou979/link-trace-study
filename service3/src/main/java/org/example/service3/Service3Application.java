@@ -1,9 +1,7 @@
 package org.example.service3;
 
-import brave.Span;
-import brave.Tracer;
-import brave.propagation.TraceContext;
-import cn.hutool.json.JSONObject;
+import cn.hutool.http.HttpResponse;
+import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class Service3Application {
     private final ExampleClient exampleClient;
-    private final Tracer tracer;
 
     public static void main(String[] args) {
         SpringApplication.run(Service3Application.class, args);
@@ -38,15 +35,9 @@ public class Service3Application {
     @GetMapping
     public Object test() {
         log.info("service3");
-        final Span span = tracer.currentSpan();
-        if (span != null) {
-            final TraceContext context = span.context();
-            System.out.println("context.traceIdString() = " + context.traceIdString());
-            System.out.println("context.spanIdString() = " + context.spanIdString());
-            System.out.println("context.parentIdString() = " + context.parentIdString());
-        }
-        final JSONObject result = exampleClient.getService();
+        final HttpResponse response = HttpUtil.createPost("localhost:8001/service1").execute();
+        response.close();
         return JSONUtil.createObj()
-                .set("status", result);
+                .set("status", response.body());
     }
 }

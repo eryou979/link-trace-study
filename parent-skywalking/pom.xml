@@ -11,9 +11,9 @@
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>parent3</artifactId>
-    <name>parent3</name>
-    <description>parent3</description>
+    <artifactId>parent-skywalking</artifactId>
+    <name>parent-skywalking</name>
+    <description>parent-skywalking</description>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -21,8 +21,7 @@
         <java.version>17</java.version>
         <spring-cloud.version>2023.0.0</spring-cloud.version>
         <alibaba-cloud.version>2022.0.0.0-RC2</alibaba-cloud.version>
-        <micrometer-tracing.version>1.2.3</micrometer-tracing.version>
-        <zipkin-reporter-brave.version>2.16.3</zipkin-reporter-brave.version>
+        <skywalking-logback.version>9.0.0</skywalking-logback.version>
         <hutool.version>5.8.26</hutool.version>
     </properties>
 
@@ -43,16 +42,14 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>io.micrometer</groupId>
-                <artifactId>micrometer-tracing-bom</artifactId>
-                <version>${micrometer-tracing.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-trace</artifactId>
+                <version>${skywalking-logback.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.zipkin.reporter2</groupId>
-                <artifactId>zipkin-reporter-brave</artifactId>
-                <version>${zipkin-reporter-brave.version}</version>
+                <groupId>org.apache.skywalking</groupId>
+                <artifactId>apm-toolkit-logback-1.x</artifactId>
+                <version>${skywalking-logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
@@ -91,20 +88,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <!-- micrometer tracing -->
+        <!-- skywalking trace -->
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing</artifactId>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-trace</artifactId>
         </dependency>
-        <!-- 桥接 -->
+        <!-- skywalking logback -->
         <dependency>
-            <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bridge-brave</artifactId>
-        </dependency>
-        <!-- 上报 -->
-        <dependency>
-            <groupId>io.zipkin.reporter2</groupId>
-            <artifactId>zipkin-reporter-brave</artifactId>
+            <groupId>org.apache.skywalking</groupId>
+            <artifactId>apm-toolkit-logback-1.x</artifactId>
         </dependency>
         <!-- hutool -->
         <dependency>

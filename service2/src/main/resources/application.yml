@@ -6,6 +6,8 @@ server:
 spring:
   application:
     name: service2
+  profiles:
+    active: '@profileActive@'
   cloud:
     nacos:
       discovery:
@@ -30,8 +32,3 @@ management:
   tracing:
     sampling:
       probability: 1.0
-
-logging:
-  pattern:
-    # 将 traceId 和 spanId 和 log 绑定
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'

@@ -276,12 +276,77 @@ management:
   tracing:
     sampling:
       probability: 1.0
-
-logging:
-  pattern:
-    # 将 traceId 和 spanId 和 log 绑定
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 ```
 
 # SkyWalking
 
+[官方地址](https://skywalking.apache.org/)
+
+[腾讯云社区](https://cloud.tencent.com/developer/article/1736637)
+
+## 后台
+
+官网下载解压后，运行 `startup.sh` 启动
+
+![image-20240315142740132](1-picture/image-20240315142740132.png)
+
+访问 `http://localhost:8080/` 
+
+![image-20240315142922595](1-picture/image-20240315142922595.png)
+
+## 探针
+
+下载解压
+
+![image-20240315143025131](1-picture/image-20240315143025131.png)
+
+给程序添加 VM 选项配置
+
+```tex
+-javaagent:C:\Users\chris\Desktop\skywalking-agent\skywalking-agent.jar
+-Dskywalking.agent.service_name=service1
+-Dskywalking.agent.instance_name=service1
+-Dskywalking.collector.backend_service=localhost:11800
+```
+
+启动程序，访问接口，就可以在后台看到链路
+
+![image-20240315143318010](1-picture/image-20240315143318010.png)
+
+异常会显示为红色
+
+![image-20240315143837480](1-picture/image-20240315143837480.png)
+
+点击进去可以看到堆栈信息
+
+![image-20240315143920573](1-picture/image-20240315143920573.png)
+
+## traceId & logback
+
+```xml
+<dependency>
+    <groupId>org.apache.skywalking</groupId>
+    <artifactId>apm-toolkit-trace</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.apache.skywalking</groupId>
+    <artifactId>apm-toolkit-logback-1.x</artifactId>
+    <version>${skywalking-logback.version}</version>
+</dependency>
+```
+
+```java
+TraceContext.traceId()
+```
+
+# logback
+
+`%tid` 只输出 traceId，`%sw_ctx` 可以输出上下文信息
+
+[logback-skywalking-common.xml](service1\src\main\resources\logback-skywalking-common.xml)
+
+[logback-spring.xml](service1\src\main\resources\logback-spring.xml)
+
+![image-20240319142914038](1-picture/image-20240319142914038.png)
+
+![image-20240319142947093](1-picture/image-20240319142947093.png)

@@ -17,12 +17,6 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-<!--    <modules>-->
-<!--        <module>../service1</module>-->
-<!--        <module>../service2</module>-->
-<!--        <module>../service3</module>-->
-<!--    </modules>-->
-
     <properties>
         <java.version>8</java.version>
         <spring-cloud.version>Hoxton.SR12</spring-cloud.version>
